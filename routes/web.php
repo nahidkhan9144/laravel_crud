@@ -17,6 +17,9 @@ Route::get('/', function () {
     return view('pages/login');
     // return redirect()->route('show');
 });
+Route::get('/goToHome', function () {
+    return view('pages/home');
+});
 
 Route::post('/login','App\Http\Controllers\BookController@loginCredential');
 Route::get('/table','App\Http\Controllers\BookController@show')->name('show');
@@ -26,3 +29,7 @@ Route::get('/updatePage/{id}', 'App\Http\Controllers\BookController@updateGetDat
 Route::post('/updateData/{id}', 'App\Http\Controllers\BookController@update');
 
 
+// php artisan cache:clear
+// php artisan route:clear
+// php artisan config:clear
+// php artisan view:clear
