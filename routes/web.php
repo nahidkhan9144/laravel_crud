@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,22 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('pages/login');
-    // return redirect()->route('show');
-});
-Route::get('/goToHome', function () {
-    return view('pages/home');
+    return view('welcome');
 });
 
-Route::post('/login','App\Http\Controllers\BookController@loginCredential');
-Route::get('/table','App\Http\Controllers\BookController@show')->name('show');
-Route::delete('/deleteData/{id}', 'App\Http\Controllers\BookController@delete')->name('delete.user');
-Route::post('/addBooks','App\Http\Controllers\BookController@add')->name('add');
-Route::get('/updatePage/{id}', 'App\Http\Controllers\BookController@updateGetData');
-Route::post('/updateData/{id}', 'App\Http\Controllers\BookController@update');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-// php artisan cache:clear
-// php artisan route:clear
-// php artisan config:clear
-// php artisan view:clear
+require __DIR__.'/auth.php';
