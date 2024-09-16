@@ -14,11 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
-    return redirect()->route('show');
+    return view('pages/login');
+    // return redirect()->route('show');
 });
 
-Route::get('/','App\Http\Controllers\BookController@show')->name('show');
+Route::post('/login','App\Http\Controllers\BookController@loginCredential');
+Route::get('/table','App\Http\Controllers\BookController@show')->name('show');
 Route::delete('/deleteData/{id}', 'App\Http\Controllers\BookController@delete')->name('delete.user');
 Route::post('/addBooks','App\Http\Controllers\BookController@add')->name('add');
 Route::get('/updatePage/{id}', 'App\Http\Controllers\BookController@updateGetData');

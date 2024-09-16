@@ -6,8 +6,17 @@ use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 class BookController extends Controller
 {
+    public function loginCredential(Request $req){
+        $check = DB::table("books_login")->where("username",$req->username)->where("pass",$req->pass)->exists();
+        if($check) {
+            return response()->json(['message' => 'Successfully Login','error' => '0'], 200);
+        }else{
+            return response()->json(['message' => 'Invalid Credentials','error' => '1'], 200);
+        }
+    }
     public function show()
     {
         $books = Book::orderBy('id', 'DESC')->simplePaginate(5);
