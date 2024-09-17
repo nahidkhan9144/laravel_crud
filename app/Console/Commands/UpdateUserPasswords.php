@@ -18,3 +18,4 @@ class PasswordUpdateController extends Controller
         return 'Passwords updated successfully.';
     }
 }
+

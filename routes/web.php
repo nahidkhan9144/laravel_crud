@@ -36,6 +36,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout','App\Http\Controllers\BookController@logoutCredential')->name('logout');
     Route::get('/updatePage/{id}', 'App\Http\Controllers\BookController@updateGetData');
     Route::post('/updateData/{id}', 'App\Http\Controllers\BookController@update');
+    Route::post('/bulkDeleteBooks', 'App\Http\Controllers\BookController@bulkDelete');
+    Route::post('/bulkDeleteBooks', 'App\Http\Controllers\BookController@bulkDelete');
+    Route::post('/importbooks', 'App\Http\Controllers\BookController@import')->name('books.import');
+    Route::get('/export-books', function () {
+        return Excel::download(new BooksExport, 'books.xlsx');
+    })->name('books.export');
+
+    Route::get('/export-books', 'App\Http\Controllers\BookController@export')->name('books.export');
+
+
 });
 
 require __DIR__.'/auth.php';

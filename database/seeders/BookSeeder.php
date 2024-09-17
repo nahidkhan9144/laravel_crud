@@ -1,24 +1,29 @@
 <?php
+namespace App\Console\Commands;
 
-namespace Database\Seeders;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-
-class BookSeeder extends Seeder
+class UpdateUserPasswords extends Command
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    protected $signature = 'users:update-passwords';
+    protected $description = 'Update all users\' passwords to a hashed version';
+
+    public function __construct()
     {
-        for ($i = 1; $i <= 10; $i++) {
-            DB::table('books')->insert([
-                'title' => 'Book Title ' . $i,
-                'author' => 'Author ' . $i,
-                'description' => 'This is the description of book ' . $i,
-                'published_date' => now(),
-            ]);
+        parent::__construct();
+    }
+
+    public function handle()
+    {
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->password = Hash::make('123');
+            $user->save();
         }
+
+        $this->info('Passwords updated successfully.');
     }
 }
+
