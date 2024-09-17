@@ -7,16 +7,28 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 class BookController extends Controller
 {
-    public function loginCredential(Request $req){
-        $check = DB::table("books_login")->where("username",$req->username)->where("pass",$req->pass)->exists();
-        if($check) {
-            return response()->json(['message' => 'Successfully Login','error' => '0'], 200);
-        }else{
+
+    public function loginCredential(Request $req)
+    {
+        $this->validate($req, [
+            'username' => 'required',
+            'pass' => 'required',
+        ]);
+        $credentials = [
+            'username' => $req->username,
+            'password' => $req->pass
+        ];
+        if (Auth::attempt($credentials)) {
+            return response()->json(['message' => 'Login Succcessfully','error' => '0'], 200);
+        } else {
             return response()->json(['message' => 'Invalid Credentials','error' => '1'], 200);
         }
     }
+
     public function show()
     {
         $books = Book::orderBy('id', 'DESC')->simplePaginate(5);
@@ -34,7 +46,7 @@ class BookController extends Controller
             'title' =>  $req->title,
             'author' => $req->author,
             'description' =>  $req->description,
-            'published_date' =>  Carbon::now()->toDateString() 
+            'published_date' =>  Carbon::now()->toDateString()
         ]);
 
         if ($user) {
@@ -62,7 +74,7 @@ class BookController extends Controller
     public function delete($id)
     {
         $delete_Data = Book::where('id', $id)->delete();
-    
+
         if ($delete_Data) {
             return redirect()->route('show')->with('success', 'Book deleted successfully.');
         } else {
@@ -70,5 +82,10 @@ class BookController extends Controller
         }
     }
     
-
+    public function logoutCredential(){
+        Auth::logout();
+        return redirect()->route('loginPage');
+        // return response()->json(['message' => 'Logged out successfully', 'error' => '0'], 200);
+    
+    }
 }
