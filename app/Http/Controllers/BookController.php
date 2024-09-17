@@ -8,7 +8,9 @@ use Illuminate\Pagination\Paginator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\BooksImport;
+use App\Exports\BooksExport;
 class BookController extends Controller
 {
 
@@ -23,9 +25,9 @@ class BookController extends Controller
             'password' => $req->pass
         ];
         if (Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Login Succcessfully','error' => '0'], 200);
+            return response()->json(['message' => 'Login Succcessfully', 'error' => '0'], 200);
         } else {
-            return response()->json(['message' => 'Invalid Credentials','error' => '1'], 200);
+            return response()->json(['message' => 'Invalid Credentials', 'error' => '1'], 200);
         }
     }
 
@@ -81,11 +83,39 @@ class BookController extends Controller
             return redirect()->route('show')->with('error', 'Book not found or not deleted.');
         }
     }
-    
-    public function logoutCredential(){
+
+    public function logoutCredential()
+    {
         Auth::logout();
         return redirect()->route('loginPage');
-        // return response()->json(['message' => 'Logged out successfully', 'error' => '0'], 200);
-    
     }
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->input('ids');
+
+        if (!empty($ids)) {
+            Book::whereIn('id', $ids)->delete();
+            return response()->json(['success' => true, 'message' => 'Books deleted successfully.']);
+        }
+
+        return response()->json(['success' => false, 'message' => 'No books selected for deletion.']);
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:csv,txt|max:2048',
+        ]);
+
+        Excel::import(new BooksImport, $request->file('file'));
+
+        return redirect()->back()->with('success', 'Books imported successfully.');
+    }
+
+    public function export()
+    {
+        return Excel::download(new BooksExport, 'books.xlsx');
+    }
+
 }
