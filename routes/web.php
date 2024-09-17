@@ -15,17 +15,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('pages.login');
+})->name('loginPage');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::post('/logins','App\Http\Controllers\BookController@loginCredential');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    Route::get('/goToHome', function () {
+        return view('pages/home');
+    });
+    
+    // Route::post('/login','App\Http\Controllers\BookController@loginCredential');
+    Route::get('/table','App\Http\Controllers\BookController@show')->name('show');
+    Route::delete('/deleteData/{id}', 'App\Http\Controllers\BookController@delete')->name('delete.user');
+    Route::post('/addBooks','App\Http\Controllers\BookController@add')->name('add');
+    Route::get('/logout','App\Http\Controllers\BookController@logoutCredential')->name('logout');
+    Route::get('/updatePage/{id}', 'App\Http\Controllers\BookController@updateGetData');
+    Route::post('/updateData/{id}', 'App\Http\Controllers\BookController@update');
 });
 
 require __DIR__.'/auth.php';
