@@ -5,9 +5,9 @@
         <div class="col-md-12">
             <h1 class="text-center">All Books List</h1>
             <div class="container">
-                <div class="row align-items-center">
+                <div class="row">
                     <!-- Column for Add New and Bulk Delete buttons -->
-                    <div class="col-md-6 d-flex align-items-center">
+                    <div class="col-md-8">
                         <a class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#createModal">
                             <i class="bi bi-plus-circle"></i> Add
                         </a>
@@ -15,35 +15,39 @@
                             <i class="bi bi-trash"></i> Delete All
                         </button>
                         <a href="{{ route('books.export') }}" class="btn btn-primary">
-                            <i class="bi bi-file-earmark-arrow-up"></i> Export
+                            <i class="bi bi-file-earmark-arrow-down"></i> Export
                         </a>
 
                     </div>
 
 
                     <!-- Column for Import Books form -->
-                    <div class="col-md-6 d-flex align-items-center">
-                        <div class="row w-100">
-                            <div class="col-md-3 d-flex align-items-center">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <!-- <div class="col-md-3">
                                 <h6 class="mb-3">
                                     <i class="bi bi-file-earmark-arrow-up"></i> Import Books
                                 </h6>
-                            </div>
-                            <div class="col-md-6">
-                                <form action="{{ route('books.import') }}" method="POST" enctype="multipart/form-data" class="d-flex align-items-center">
-                                    @csrf
-                                    <div class="mb-3 d-flex flex-column flex-sm-row w-100">
-                                        <div class="input-group">
-                                            <label class="input-group-text" for="file">
-                                                <i class="bi bi-upload"></i>
-                                            </label>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary mt-2 mt-sm-0">
-                                            <i class="bi bi-file-earmark-arrow-up"></i> Import
-                                        </button>
+                            </div> -->
+                            <!-- <div class="col-md-6"> -->
+                            <form action="{{ route('books.import') }}" method="POST" enctype="multipart/form-data" class="d-flex align-items-center">
+                                @csrf
+
+                                <div class="mb-3 d-flex flex-column flex-sm-row w-100">
+                                    
+                                    <div class="input-group">
+                                        <label class="input-group-text mb-4" for="file">
+                                            <i class="bi bi-upload"></i>
+                                        </label>
+                                        <input type="file" id="file" class="form-control me-2 mb-4" name="file"  accept=".csv" required>
                                     </div>
-                                </form>
-                            </div>
+                                    <button type="submit" class="btn btn-success mb-4">
+                                        Import
+                                    </button>
+                                </div>
+
+                            </form>
+                            <!-- </div> -->
                         </div>
 
                     </div>
