@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\BooksImport;
 use App\Exports\BooksExport;
+use Illuminate\Support\Facades\Log;
+
 class BookController extends Controller
 {
 
@@ -48,7 +50,7 @@ class BookController extends Controller
             'title' =>  $req->title,
             'author' => $req->author,
             'description' =>  $req->description,
-            'published_date' =>  Carbon::now()->toDateString()
+            'published_date' => Carbon::now()->format('Y-m-d')
         ]);
 
         if ($user) {
@@ -108,14 +110,18 @@ class BookController extends Controller
             'file' => 'required|mimes:csv,txt|max:2048',
         ]);
 
-        Excel::import(new BooksImport, $request->file('file'));
-
-        return redirect()->back()->with('success', 'Books imported successfully.');
+        try {
+            Excel::import(new BooksImport, $request->file('file'));
+            return redirect()->back()->with('success', 'Books imported successfully.');
+        } catch (\Exception $e) {
+            Log::error('Import error: ', ['error' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'An error occurred during import.');
+        }
     }
+
 
     public function export()
     {
         return Excel::download(new BooksExport, 'books.xlsx');
     }
-
 }

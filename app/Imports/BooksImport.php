@@ -1,44 +1,58 @@
 <?php
-
 namespace App\Imports;
 
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use App\Models\Book;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 
-class BooksImport implements ToModel
+class BooksImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-        $publishedDate = null;
-
-        // Log the row data to see what you're importing
+        // Log the row to inspect its content
         Log::info('Importing row:', $row);
 
-        // Check if the published date field is not empty
-        if (!empty($row[3])) {
+        $title = $row['title'] ?? null;
+        $author = $row['author'] ?? null;
+        $description = $row['description'] ?? null;
+        $publishedDate = $row['published_date'] ?? '1900-01-01';
+
+        // Ensure the title and author fields are not empty
+        if (empty($title) || empty($author)) {
+            Log::error('Skipping row due to missing required fields:', [
+                'title' => $title,
+                'author' => $author,
+            ]);
+            return null;
+        }
+
+        // Attempt to parse the date field
+        if (!empty($publishedDate)) {
             try {
-                $publishedDate = Carbon::parse($row[3]);
+                $publishedDate = Carbon::createFromFormat('d-m-Y', $publishedDate)->format('Y-m-d');
             } catch (\Exception $e) {
-                // Log the error
-                Log::error('Date parsing error: ', ['error' => $e->getMessage(), 'date' => $row[3]]);
+                Log::error('Date parsing error: ', ['error' => $e->getMessage(), 'date' => $publishedDate]);
+                $publishedDate = '1900-01-01'; // Use default if date parsing fails
             }
         }
 
-        // Log the processed data
-        Log::info('Processed data:', [
-            'title' => $row[0],
-            'author' => $row[1],
-            'description' => $row[2],
+        // Avoid duplicate insertions based on 'id' or another unique key
+        $existingBook = Book::where('id', $row['id'])->first();
+        if ($existingBook) {
+            Log::info('Skipping existing entry (duplicate id):', ['id' => $row['id']]);
+            return null; // Skip updating the existing record
+        }
+
+        // Insert the new record
+        Book::create([
+            'title' => $title,
+            'author' => $author,
+            'description' => $description,
             'published_date' => $publishedDate,
         ]);
 
-        return new Book([
-            'title' => $row[0],
-            'author' => $row[1],
-            'description' => $row[2],
-            'published_date' => $publishedDate,
-        ]);
+        Log::info('Inserted new entry:', ['title' => $title, 'author' => $author]);
     }
 }
