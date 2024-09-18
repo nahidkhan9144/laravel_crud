@@ -39,10 +39,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/bulkDeleteBooks', 'App\Http\Controllers\BookController@bulkDelete');
     Route::post('/bulkDeleteBooks', 'App\Http\Controllers\BookController@bulkDelete');
     Route::post('/importbooks', 'App\Http\Controllers\BookController@import')->name('books.import');
-    Route::get('/export-books', function () {
-        return Excel::download(new BooksExport, 'books.xlsx');
-    })->name('books.export');
-
     Route::get('/export-books', 'App\Http\Controllers\BookController@export')->name('books.export');
 
 
