@@ -34,12 +34,12 @@
                                 @csrf
 
                                 <div class="mb-3 d-flex flex-column flex-sm-row w-100">
-                                    
+
                                     <div class="input-group">
                                         <label class="input-group-text mb-4" for="file">
                                             <i class="bi bi-upload"></i>
                                         </label>
-                                        <input type="file" id="file" class="form-control me-2 mb-4" name="file"  accept=".csv" required>
+                                        <input type="file" id="file" class="form-control me-2 mb-4" name="file" accept=".csv" required>
                                     </div>
                                     <button type="submit" class="btn btn-success mb-4">
                                         Import
@@ -55,41 +55,46 @@
             </div>
 
 
+            <!-- <table class="table"> -->
             <table class="table table-bordered table-striped">
-                <tr>
-                    <th><input type="checkbox" id="select-all"></th> <!-- Select all checkbox -->
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Description</th>
-                    <th>Published Date</th>
-                    <th>View</th>
-                    <th>Update</th>
-                    <th>Delete</th>
-                </tr>
-                @foreach ($data as $id => $book)
-                <tr>
-                    <td><input type="checkbox" class="select-item" value="{{ $book->id }}"></td> <!-- Checkbox for each item -->
-                    <td>{{ $book->id }}</td>
-                    <td>{{ $book->title }}</td>
-                    <td>{{ $book->author }}</td>
-                    <td>{{ $book->description }}</td>
-                    <td>{{ $book->published_date }}</td>
-                    <td><button type="button" class="btn btn-primary"
-                            onclick="updateData({{ $book->id }},'view')">View</button></td>
-                    <td><button type="button" class="btn btn-primary"
-                            onclick="updateData({{ $book->id }},'update')">update</button>
-                    </td>
-                    <td>
-                        <!-- Delete Form -->
-                        <form action="{{ route('delete.user', $book->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">DELETE</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
+                <thead>
+                    <tr class="table-secondary">
+                        <th><input type="checkbox" id="select-all"></th> <!-- Select all checkbox -->
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Description</th>
+                        <th>Published Date</th>
+                        <th>View</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    @foreach ($data as $id => $book)
+                    <tr>
+                        <td><input type="checkbox" class="select-item" value="{{ $book->id }}"></td> <!-- Checkbox for each item -->
+                        <td>{{ $book->id }}</td>
+                        <td>{{ $book->title }}</td>
+                        <td>{{ $book->author }}</td>
+                        <td>{{ $book->description }}</td>
+                        <td>{{ $book->published_date }}</td>
+                        <td><button type="button" class="btn btn-primary"
+                                onclick="updateData({{ $book->id }},'view')"><i class="fa fa-eye"></i></button></td>
+                        <td><button type="button" class="btn btn-primary"
+                                onclick="updateData({{ $book->id }},'update')"><i class="fas fa-edit"></i></button>
+                        </td>
+                        <td>
+                            <!-- Delete Form -->
+                            <form action="{{ route('delete.user', $book->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
             </table>
             <div class="text-center mt-5">
                 {{ $data->links() }}
