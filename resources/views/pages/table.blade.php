@@ -8,30 +8,44 @@
                 <div class="row align-items-center">
                     <!-- Column for Add New and Bulk Delete buttons -->
                     <div class="col-md-6 d-flex align-items-center">
-                        <a class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#createModal">Add New</a>
-                        <button id="bulk-delete" class="btn btn-danger" onclick="bulkDelete()">Delete Selected</button>
+                        <a class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#createModal">
+                            <i class="bi bi-plus-circle"></i> Add
+                        </a>
+                        <button id="bulk-delete" class="btn btn-danger" onclick="bulkDelete()">
+                            <i class="bi bi-trash"></i> Delete All
+                        </button>
                         <a href="{{ route('books.export') }}" class="btn btn-primary">
-                            <i class="fa fa-file-export"></i> Export Books
+                            <i class="bi bi-file-earmark-arrow-up"></i> Export
                         </a>
 
                     </div>
+
 
                     <!-- Column for Import Books form -->
                     <div class="col-md-6 d-flex align-items-center">
                         <div class="row w-100">
                             <div class="col-md-3 d-flex align-items-center">
-                                <h6 class="mb-3">Import Books</h6>
+                                <h6 class="mb-3">
+                                    <i class="bi bi-file-earmark-arrow-up"></i> Import Books
+                                </h6>
                             </div>
                             <div class="col-md-6">
                                 <form action="{{ route('books.import') }}" method="POST" enctype="multipart/form-data" class="d-flex align-items-center">
                                     @csrf
                                     <div class="mb-3 d-flex flex-column flex-sm-row w-100">
-                                        <input type="file" class="form-control me-2" name="file" accept=".csv" required>
-                                        <button type="submit" class="btn btn-primary mt-2 mt-sm-0">Import</button>
+                                        <div class="input-group">
+                                            <label class="input-group-text" for="file">
+                                                <i class="bi bi-upload"></i>
+                                            </label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mt-2 mt-sm-0">
+                                            <i class="bi bi-file-earmark-arrow-up"></i> Import
+                                        </button>
                                     </div>
                                 </form>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
