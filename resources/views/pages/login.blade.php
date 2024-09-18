@@ -3,23 +3,23 @@
 @section('content')
 <div class="d-flex justify-content-center align-items-center vh-100">
     <form class="p-5 bg-white rounded border shadow" method="POST" action="/login">
+        <h2 class="text-center mb-3 border-bottom p-3">Sign in</h2>
         @csrf
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <!-- User Name input -->
         <label class="form-label" for="userName">User Name</label>
         <div class="form-outline mb-4">
             <input type="text" id="userName" name="username" class="form-control" required />
         </div>
 
-        <!-- Password input -->
         <label class="form-label" for="pass">Password</label>
         <div class="form-outline mb-4">
             <input type="password" id="pass" name="pass" class="form-control" required />
         </div>
 
-        <!-- Submit button -->
-        <button type="button" class="btn btn-primary btn-block mb-4" onclick="btnClick()">Sign in</button>
+        <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-success btn-block mb-4 float-left" onclick="btnClick()">Sign in</button>
+        </div>
     </form>
 </div>
 @endsection
