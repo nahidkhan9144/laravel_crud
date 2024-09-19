@@ -31,14 +31,13 @@ class BookController extends Controller
             Auth::loginUsingId($findUser->id, true);
             return response()->json(['message' => 'Login Successfully', 'error' => '0'], 200);
         } 
-        // else { //this is for authnticate user from UserTable 
-
-        //     if (Auth::attempt($credentials)) {
-        //         return response()->json(['message' => 'Login Succcessfully', 'error' => '0'], 200);
-        //     } else {
-        //         return response()->json(['message' => 'Invalid Credentials', 'error' => '1'], 200);
-        //     }
-        // }
+        else { //this is for authnticate user from UserTable 
+            if (Auth::attempt($credentials)) {
+                return response()->json(['message' => 'Login Succcessfully', 'error' => '0'], 200);
+            } else {
+                return response()->json(['message' => 'Invalid Credentials', 'error' => '1'], 200);
+            }
+        }
     }
 
     public function show()
