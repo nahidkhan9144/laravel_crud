@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('pages.login');
 })->name('loginPage');
 
+Route::get('/top', function () {
+    return view('inc.top');
+});
+
 Route::post('/logins','App\Http\Controllers\BookController@loginCredential');
 
 Route::middleware('auth')->group(function () {
