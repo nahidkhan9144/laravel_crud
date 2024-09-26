@@ -1,3 +1,3 @@
-<div class="row">
-    <p><a href="/goToHome">Dashboard</a> > <a href="/table">Books Data</a> > <a href="/logout">Logout</a></p>
+<div class="d-flex bg-secondary bg-gradient">
+    <p><a href="/goToHome" class="mx-3"> Dashboard </a> > <a href="/table" class="mx-3"> Books Data </a> > <a href="/logout" class="mx-3"> Logout </a></p>
 </div>
