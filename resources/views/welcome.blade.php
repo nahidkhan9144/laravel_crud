@@ -14,11 +14,11 @@
 </head>
 
 <body>
+    @if (Route::currentRouteAction() != 'App\Http\Controllers\BookController@loginCredential' && !request()->is('/'))
+ 
+    @include('pages.inc.top')
+    @endif
     <div class="d-flex justify-content-between justify-content-around">
-        @if (Route::currentRouteAction() != 'App\Http\Controllers\BookController@loginCredential' && !request()->is('/'))
-     
-        @include('pages.inc.top')
-        @endif
 
         @hasSection('content')
         @yield('content')
