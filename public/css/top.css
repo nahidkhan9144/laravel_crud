@@ -4,6 +4,24 @@
     font-family: "Times New Roman", Times, serif;
     text-decoration: none;
 }
+
+body{
+    overflow: hidden;
+    background-color: lightblue; 
+    background-image:url('../img/userBooks.jpg');
+    background-size:593px, 5px;
+    background-position: right;
+    background-repeat: no-repeat;
+    padding-left: 150px;
+    
+}
+
+#loginDiv{
+    border: 2px solid black;
+    border-radius: 88px;
+    /* border-radius: 20px solid #571a1a; */
+}
+
 /* a{
     color: black;
     font-family: cursive;
