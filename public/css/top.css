@@ -4,6 +4,12 @@
     font-family: "Times New Roman", Times, serif;
     text-decoration: none;
 }
+
+body{
+    background-color: lightblue; 
+    background-image:url('../img/userBooks.jpg');
+}
+
 /* a{
     color: black;
     font-family: cursive;
