@@ -1,8 +1,8 @@
 @extends('welcome')
 
 @section('content')
-<div class="d-flex justify-content-center align-items-center border border-secondary-subtle vh-100">
-    <form class="p-5 bg-white rounded border shadow" method="POST" action="/login">
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <form class="p-5 bg-white" id="loginDiv" method="POST" action="/login">
         <h2 class="text-center mb-3 border-bottom p-3">Sign in</h2>
         @csrf
         <meta name="csrf-token" content="{{ csrf_token() }}">
