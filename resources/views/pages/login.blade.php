@@ -2,7 +2,7 @@
 
 @section('content')
 <div id="login">
-<div class="mx-5 d-flex p-3 justify-right-between justify-right-around">
+<div class="mx-5 d-flex p-3 justify-right-between justify-right-around" id="login-box">
     <div class="d-flex justify-content-center align-items-center vh-100">
         <form class="p-5 form-container" id="loginDiv" method="POST" action="/login">
             <h2 class="text-center mb-3 border-bottom p-3">Sign in</h2>
