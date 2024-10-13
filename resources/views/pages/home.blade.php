@@ -1,6 +1,6 @@
 @extends('welcome')
 @section('content')
-<div class="row">
+<div class="row" id="form-container">
     <div class="row mb-4 my-3">
         <h2 class="text-center border-bottom">Dashboard</h2>
     </div>
