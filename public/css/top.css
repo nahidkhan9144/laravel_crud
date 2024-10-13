@@ -5,20 +5,39 @@
     text-decoration: none;
 }
 
-body{
+#login{
     overflow: hidden;
-    background-color: lightblue; 
-    background-image:url('../img/userBooks.jpg');
-    background-size:593px, 5px;
+    background-color: #fff; 
+    background-image:url('../img/stack-books-isolated-white_821599-786.avif');
+    background-size:contain;
     background-position: right;
     background-repeat: no-repeat;
     padding-left: 150px;
+    filter: drop-shadow(2px 4px 6px black);
+    /* filter: blur(8px); */
     
+    /* To make sure form content isn't blurred */
+    position: relative;
+}
+
+#form-container{
+    z-index: 1; /* Make sure this stays above the background */
+}
+
+/* Make sure the form elements are not blurred */
+#form-container * {
+    filter: none;
 }
 
 #loginDiv{
-    border: 2px solid black;
-    border-radius: 88px;
+    border-style: inset;
+    border-start-end-radius: 80px 80px;
+    border-bottom-style: groove;
+    border: 2px solid #c1c4df;
+    /* border-radius: 88px; */
+    background-color: #b9cbd3;
+    z-index: 1; 
+    border-bottom-left-radius: 17%
     /* border-radius: 20px solid #571a1a; */
 }
 

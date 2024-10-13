@@ -20,7 +20,7 @@
  
     @include('pages.inc.top')
     @endif
-    <div class="mx-5 d-flex p-3 justify-right-between justify-right-around">
+   
 
         @hasSection('content')
         @yield('content')
