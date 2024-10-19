@@ -1,6 +1,6 @@
 @extends('welcome')
 @section('content')
-<div class="mx-5 d-flex p-3 justify-center-between justify-center-around">
+<div class="mx-5 d-flex p-3 justify-center-between justify-center-around" style="flex-direction: column-reverse; align-items: center">
     <div class="row" id="form-container">
         <div class="row mb-4 my-3">
             <h2 class="text-center border-bottom">Dashboard</h2>
