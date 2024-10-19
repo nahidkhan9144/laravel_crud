@@ -29,10 +29,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <a href="{{ route('show') }}" class="btn btn-outline-primary" tabindex="-1" role="button" aria-disabled="true">View Books</a> -->
-    <!-- <a href="{{ route('logout') }}" class="btn btn-outline-primary" tabindex="-1" role="button" aria-disabled="true">Logout</a> -->
-    <!-- <button type="button" class="btn btn-outline-secondary">Logout</button> -->
 </div>
 @endsection
 
