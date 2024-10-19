@@ -1,4 +1,7 @@
 
+body{
+    overflow: hidden;
+}
 #bg{
     color: black;
     font-family: "Times New Roman", Times, serif;
@@ -15,6 +18,8 @@
     padding-left: 150px;
     filter: drop-shadow(2px 4px 6px black);
     /* filter: blur(8px); */
+
+    overflow: hidden;
     
     /* To make sure form content isn't blurred */
     position: relative;
